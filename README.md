@@ -1,8 +1,9 @@
 
 ## Writing a basic HTTP server is easy using the net/http package.
 
-# to run http server 
-cd to folder
+# To run http server 
+
+cd simple-http-server
 ```
  go run server.go
 
