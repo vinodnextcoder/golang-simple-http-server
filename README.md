@@ -1,11 +1,13 @@
 
-## Writing a basic HTTP server is easy using the net/http package.
+## Writing a basic HTTP server is easy using the net/http package , gin package
 
 # To run http server 
 
 cd simple-http-server
 ```
- go run server.go
+for gin
+Install Gin:
+go get github.com/gin-gonic/gin
 
 ````
 
