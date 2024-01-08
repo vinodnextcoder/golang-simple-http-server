@@ -6,8 +6,17 @@
 cd simple-http-server
 ```
 for gin
+
+git clone https://github.com/vinodnextcoder/golang-simple-http-server.git
+
+cd golang-simple-http-server/simple-gin-server
+
 Install Gin:
 go get github.com/gin-gonic/gin
+
+You can run your Gin web application by executing the main.go file:
+
+go run main.go
 
 ````
 
