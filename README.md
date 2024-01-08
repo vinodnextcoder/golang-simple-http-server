@@ -20,4 +20,10 @@ http://localhost:3000
 
 http://localhost:3000/headers
 
+http://localhost:3000/user/testuser
+
+http://localhost:3000/contact
+
+
+
 ```
