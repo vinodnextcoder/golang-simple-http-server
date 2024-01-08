@@ -9,7 +9,7 @@ for gin
 
 git clone https://github.com/vinodnextcoder/golang-simple-http-server.git
 
-cd golang-simple-http-server/simple-gin-server
+cd golang-simple-http-server/gin-web-app
 
 Install Gin:
 go get github.com/gin-gonic/gin
