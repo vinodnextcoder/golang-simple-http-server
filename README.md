@@ -8,6 +8,7 @@ cd simple-http-server
 for gin
 
 git clone https://github.com/vinodnextcoder/golang-simple-http-server.git
+ you go any dorectory install package and run code
 
 cd golang-simple-http-server/gin-web-app
 
@@ -29,7 +30,9 @@ http://localhost:3000
 for simpe-http-server
 http://localhost:3000
 
-http://localhost:3000/headers
+
+for folder gin-web-app
+http://localhost:3000
 
 http://localhost:3000/user/testuser
 
