@@ -29,14 +29,32 @@ func getUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Hello, " + name + "!"})
 }
 
+var users = []userDetail{
+	{ID: "1", Name: "Blue Train", Age: 56},
+	{ID: "2", Name: "Akash", Age: 11},
+	{ID: "3", Name: "pradip", Age: 56},
+}
+
 func getUsers(c *gin.Context) {
-	var users = []userDetail{
-		{ID: "1", Name: "Blue Train", Age: 56},
-		{ID: "2", Name: "Akash", Age: 11},
-		{ID: "3", Name: "pradip", Age: 56},
-	}
 
 	c.JSON(http.StatusOK, users)
+}
+
+// postAlbums adds an album from JSON received in the request body.
+func addUser(c *gin.Context) {
+
+	var newUser userDetail
+
+	// Call BindJSON to bind the received JSON to
+	// newAlbum.
+	if err := c.BindJSON(&newUser); err != nil {
+		return
+	}
+
+	// Add the new album to the slice.
+	users = append(users, newUser)
+	c.IndentedJSON(http.StatusCreated, newUser)
+
 }
 
 func main() {
@@ -55,6 +73,7 @@ func main() {
 	// with param
 	router.GET("/user/:name", getUser)
 	router.GET("/user", getUsers)
+	router.POST("/user", addUser)
 
 	router.Run(":3000")
 }
