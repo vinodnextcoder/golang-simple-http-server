@@ -57,6 +57,22 @@ func addUser(c *gin.Context) {
 
 }
 
+// / getAlbumByID locates the album whose ID value matches the id
+// parameter sent by the client, then returns that album as a response.
+func getUserByID(c *gin.Context) {
+	id := c.Param("id")
+
+	// Loop over the list of albums, looking for
+	// an album whose ID value matches the parameter.
+	for _, a := range users {
+		if a.ID == id {
+			c.JSON(http.StatusOK, a)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "user not found"})
+}
+
 func main() {
 	router := gin.Default()
 
@@ -74,6 +90,7 @@ func main() {
 	router.GET("/user/:name", getUser)
 	router.GET("/user", getUsers)
 	router.POST("/user", addUser)
+	router.GET("/userData/:id", getUserByID)
 
 	router.Run(":3000")
 }
