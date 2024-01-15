@@ -4,9 +4,27 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-// album represents data about a record album.
+func main() {
+
+	router := gin.Default()
+
+	router.GET("/", helloCall)
+
+	router.GET("/about", aboutCall)
+	router.GET("/contact", contactCall)
+	router.GET("/user/:name", getUser)
+	router.GET("/user", getUsers)
+	router.POST("/user", addUser)
+	router.GET("/userData/:id", getUserByID)
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	router.Run(":3001")
+}
+
 type userDetail struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
@@ -40,30 +58,22 @@ func getUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
 }
 
-// postAlbums adds an album from JSON received in the request body.
 func addUser(c *gin.Context) {
 
 	var newUser userDetail
 
-	// Call BindJSON to bind the received JSON to
-	// newAlbum.
 	if err := c.BindJSON(&newUser); err != nil {
 		return
 	}
 
-	// Add the new album to the slice.
 	users = append(users, newUser)
 	c.IndentedJSON(http.StatusCreated, newUser)
 
 }
 
-// / getAlbumByID locates the album whose ID value matches the id
-// parameter sent by the client, then returns that album as a response.
 func getUserByID(c *gin.Context) {
 	id := c.Param("id")
 
-	// Loop over the list of albums, looking for
-	// an album whose ID value matches the parameter.
 	for _, a := range users {
 		if a.ID == id {
 			c.JSON(http.StatusOK, a)
@@ -71,26 +81,4 @@ func getUserByID(c *gin.Context) {
 		}
 	}
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "user not found"})
-}
-
-func main() {
-	router := gin.Default()
-
-	// Define a route handler for the root path
-	router.GET("/", helloCall)
-
-	// Define a route handler for "/about"
-	router.GET("/about", aboutCall)
-
-	// Define a route handler for "/contact"
-	router.GET("/contact", contactCall)
-
-	// Add this route handler
-	// with param
-	router.GET("/user/:name", getUser)
-	router.GET("/user", getUsers)
-	router.POST("/user", addUser)
-	router.GET("/userData/:id", getUserByID)
-
-	router.Run(":3000")
 }
