@@ -1,15 +1,108 @@
+basePath: /
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
 host: localhost:3001
 info:
   contact:
-    email: sntshkmr60@gmail.com
-    name: Santosh Kumar
-    url: https://twitter.com/sntshk
-  description: A book management service API in Go using Gin framework.
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  termsOfService: https://tos.santoshk.dev
-  title: Gin Book Service
+    email: support@swagger.io
+    name: vinod
+    url: http://www.swagger.io/support
+  description: This is a sample gin web server
+  title: Swagger Example API
   version: "1.0"
-paths: {}
+paths:
+  /:
+    get:
+      consumes:
+      - application/json
+      description: Hello
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: hellow example
+      tags:
+      - example
+  /about:
+    get:
+      consumes:
+      - application/json
+      description: about
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: about routes
+      tags:
+      - about
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: users list
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: users list
+  /user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: user get  by id
+      operationId: get-string-by-int
+      parameters:
+      - description: userid ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: get user id
+  /user/{name}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: usernmae
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: get user name
 swagger: "2.0"

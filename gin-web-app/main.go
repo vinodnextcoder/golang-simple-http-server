@@ -6,21 +6,22 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	_ "github.com/vinodnextcoder/go-web-app/docs"
 )
 
-// @title           Gin Book Service
+// @title           Swagger Example API
 // @version         1.0
-// @description     A book management service API in Go using Gin framework.
-// @termsOfService  https://tos.santoshk.dev
+// @description     This is a sample gin web server
 
-// @contact.name   Santosh Kumar
-// @contact.url    https://twitter.com/sntshk
-// @contact.email  sntshkmr60@gmail.com
-
-// @license.name  Apache 2.0
-// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+// @contact.name   vinod
+// @contact.url    http://www.swagger.io/support
+// @contact.email  support@swagger.io
 
 // @host      localhost:3001
+// @BasePath  /
+
+// @externalDocs.description  OpenAPI
+// @externalDocs.url          https://swagger.io/resources/open-api/
 func main() {
 
 	router := gin.Default()
@@ -28,12 +29,10 @@ func main() {
 	router.GET("/", helloCall)
 
 	router.GET("/about", aboutCall)
-	router.GET("/contact", contactCall)
 	router.GET("/user/:name", getUser)
 	router.GET("/user", getUsers)
 	router.POST("/user", addUser)
 	router.GET("/userData/:id", getUserByID)
-
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	router.Run(":3001")
@@ -45,17 +44,41 @@ type userDetail struct {
 	Age  int    `json:"age"`
 }
 
+// helloCall godoc
+// @Summary hellow example
+// @Schemes
+// @Description Hello
+// @Tags example
+// @Accept json
+// @Produce json
+// @Success 200 {string} Hello, You created a Web App!
+// @Router / [get]
 func helloCall(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Hello, You created a Web App!"})
 }
 
+// aboutCall godoc
+// @Summary about routes
+// @Schemes
+// @Description about
+// @Tags about
+// @Accept json
+// @Produce json
+// @Success 200 {string} About Us
+// @Router /about [get]
 func aboutCall(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "About Us"})
 }
-func contactCall(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "Contact Us"})
-}
 
+// @Summary get user name
+// @Accept  json
+// @Produce  json
+// @Param        name   path      string  true  "usernmae"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /user/{name} [get]
 func getUser(c *gin.Context) {
 	name := c.Param("name")
 	c.JSON(http.StatusOK, gin.H{"message": "Hello, " + name + "!"})
@@ -67,6 +90,15 @@ var users = []userDetail{
 	{ID: "3", Name: "pradip", Age: 56},
 }
 
+// @Summary users list
+// @Description users list
+// @Accept  json
+// @Produce  json
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /user [get]
 func getUsers(c *gin.Context) {
 
 	c.JSON(http.StatusOK, users)
@@ -85,6 +117,17 @@ func addUser(c *gin.Context) {
 
 }
 
+// @Summary get user id
+// @Description user get  by id
+// @ID get-string-by-int
+// @Accept  json
+// @Produce  json
+// @Param        id   path      int  true  "userid ID"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
+// @Router       /user/{id} [get]
 func getUserByID(c *gin.Context) {
 	id := c.Param("id")
 
