@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
+	"os"
 
+    "github.com/joho/godotenv"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -24,6 +28,14 @@ import (
 // @externalDocs.url          https://swagger.io/resources/open-api/
 func main() {
 
+	err := godotenv.Load(".env.dev")
+	
+  if err != nil {
+    log.Fatal("Error loading .env file")
+  }
+
+  port := os.Getenv("PORT")
+
 	router := gin.Default()
 
 	router.GET("/", helloCall)
@@ -35,7 +47,7 @@ func main() {
 	router.GET("/userData/:id", getUserByID)
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	router.Run(":3001")
+	router.Run("0.0.0.0:"+port)
 }
 
 type userDetail struct {
